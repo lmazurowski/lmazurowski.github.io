@@ -24,8 +24,8 @@ const tileContentMap: Record<TileId, any> = {
   ),
   tile1: (
     <Div>
-      Passionate web, mobile and backend programmer with over 6 years of
-      commercial experience
+      Passionate web, mobile and backend programmer <br/> with over{' '}
+      {new Date().getFullYear() - 2015} years of commercial experience
     </Div>
   ),
   tile2: (
