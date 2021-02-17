@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "esnext",
+    "lib": ["dom", "DOM.Iterable", "ESNext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -13,12 +14,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
+    "jsxFactory": "h",
     "jsxImportSource": "solid-js"
   },
-  "files": [
-    "./node_modules/solid-scripts/types/solid-app.d.ts"
-  ],
-  "include": [
-    "src"
-  ]
+  "files": ["./node_modules/solid-scripts/types/solid-app.d.ts"],
+  "include": ["src"],
+  "exclude": ["node_modules","**/*.spec.ts","**/*.spec.tsx"]
 }
