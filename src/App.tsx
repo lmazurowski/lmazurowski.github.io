@@ -58,26 +58,26 @@ const App = () => {
       const height = root ? `${root.clientHeight}px` : '100vh';
 
       const VideoClassName = css`
-      position: absolute;
-      object-fit: cover;
-      z-index: 1;
-      opacity: 0.2;
-      display: block;
-      width: 100vw;
-      height: ${height};
-
-      @media screen and (min-width: 960px) {
+        position: absolute;
+        object-fit: cover;
+        z-index: 1;
+        opacity: 0.2;
         display: block;
-        width: 964px;
-        height: 640px;
-        top: 20px;
-      }
-    `;
+        width: 100vw;
+        height: ${height};
+
+        @media screen and (min-width: 960px) {
+          display: block;
+          width: 964px;
+          height: 640px;
+          top: 20px;
+        }
+      `;
 
       setState({
         videoClassName: VideoClassName,
       });
-    }, 1000);
+    }, 750);
   });
 
   onCleanup(() => {
@@ -131,25 +131,27 @@ const App = () => {
   return (
     <>
       <AppWrapper>
-        <Wrapper id='wrapper'>
-          <img
-            id='img'
-            className={ImgClassName}
-            src={avatar}
-            onLoad={handleOnLoad}
-          />
-          {state.tiles}
-
-          {state.videoClassName && (
-            <video
-              className={state.videoClassName}
-              src={smoke}
-              autoplay
-              muted
-              loop
+        <main>
+          <Wrapper id='wrapper'>
+            <img
+              id='img'
+              className={ImgClassName}
+              src={avatar}
+              onLoad={handleOnLoad}
             />
-          )}
-        </Wrapper>
+
+            {state.tiles}
+            {state.videoClassName && (
+              <video
+                className={state.videoClassName}
+                src={smoke}
+                autoplay
+                muted
+                loop
+              />
+            )}
+          </Wrapper>
+        </main>
       </AppWrapper>
       <Footer>
         Powered by{' '}
