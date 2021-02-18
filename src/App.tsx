@@ -103,10 +103,15 @@ const App = () => {
 
     for (let j = 0; j < length; j++) {
       for (let i = 0; i < length; i++) {
-        const left = ((-1 * naturalWidth) / length) * i;
+        let left = ((-1 * naturalWidth) / length) * i;
         const top = ((-1 * naturalHeight) / ylength) * j;
         const tileWidth = Math.floor(naturalWidth / length);
         const tileHeight = Math.floor(naturalHeight / ylength);
+
+        if (tileWidth > innerWidth) {
+          left -= (tileWidth - innerWidth);
+          left = left < -480 ? -480 : left;
+        }
 
         tiles.push(
           <Tile
@@ -117,7 +122,7 @@ const App = () => {
             top={top}
             src={src}
             delay={delay}
-          />,
+          />
         );
         delay += 150;
       }
