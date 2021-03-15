@@ -18,7 +18,7 @@ const Wrapper = styled('div')`
   padding: 20px;
   width: 964px;
 
-  @media screen and (max-width: 720px) {
+  @media screen and (max-width: 960px) {
     width: 100%;
     padding: 0;
   }
@@ -49,41 +49,50 @@ const App = () => {
     tiles: [],
     videoClassName: '',
   });
+  const handleSetVideoHeigh = () => {
+    const root = document.getElementById('root');
+    const height = root ? `${root.clientHeight}px` : '100vh';
+
+    const VideoClassName = css`
+      position: absolute;
+      object-fit: cover;
+      z-index: 1;
+      opacity: 0.2;
+      display: block;
+      width: 100vw;
+      height: ${height};
+
+      @media screen and (min-width: 960px) {
+        display: block;
+        width: 964px;
+        height: 640px;
+        top: 20px;
+      }
+    `;
+
+    setState({
+      videoClassName: VideoClassName,
+    });
+  };
 
   let setVideoHeight;
 
+  const onResize = () => {
+    handleSetVideoHeigh();
+  };
+
+  window.addEventListener('resize', onResize);
+
   onMount(() => {
-    setVideoHeight = setTimeout(() => {
-      const root = document.getElementById('root');
-      const height = root ? `${root.clientHeight}px` : '100vh';
-
-      const VideoClassName = css`
-        position: absolute;
-        object-fit: cover;
-        z-index: 1;
-        opacity: 0.2;
-        display: block;
-        width: 100vw;
-        height: ${height};
-
-        @media screen and (min-width: 960px) {
-          display: block;
-          width: 964px;
-          height: 640px;
-          top: 20px;
-        }
-      `;
-
-      setState({
-        videoClassName: VideoClassName,
-      });
-    }, 750);
+    setVideoHeight = setTimeout(handleSetVideoHeigh, 2000);
   });
 
   onCleanup(() => {
     if (setVideoHeight) {
       clearTimeout(setVideoHeight);
     }
+
+    window.removeEventListener('resize', onResize);
   });
 
   const { innerWidth } = window;
@@ -109,7 +118,7 @@ const App = () => {
         const tileHeight = Math.floor(naturalHeight / ylength);
 
         if (tileWidth > innerWidth) {
-          left -= (tileWidth - innerWidth);
+          left -= tileWidth - innerWidth;
           left = left < -480 ? -480 : left;
         }
 
@@ -122,7 +131,7 @@ const App = () => {
             top={top}
             src={src}
             delay={delay}
-          />
+          />,
         );
         delay += 150;
       }
